@@ -89,7 +89,7 @@ function Predictor(props) {
                     previous_yards_gained: values.previous_yards_gained,
                     yards_to_goal: values.yards_to_goal,
                 }
-
+                // console.log(dict)
                 // console.log(dict)
                 // console.log('player_first ', dict.player_first, typeof dict.player_first)
                 // console.log('player_last ', dict.player_last, typeof dict.player_last)
@@ -108,7 +108,7 @@ function Predictor(props) {
                 // Put axios call to API here:
                 let calcResp
                 try {
-                    calcResp = await axios.post(`http://ec2-18-234-190-213.compute-1.amazonaws.com:8000/api/getShotPrediction/`, JSON.stringify(dict))
+                    calcResp = await axios.post(`http://127.0.0.1:8000/api/getPassing/`, JSON.stringify(dict))
                 }
                 catch(err) {
                     console.log(err)
@@ -116,7 +116,7 @@ function Predictor(props) {
                 
                 console.log('RESPONSE 1:', calcResp.data)
                 let results = ''
-                if (calcResp.data.result > 0.5) {
+                if (calcResp.data.result > 9) {
                     results = 'success'
                 }
                 else {
@@ -220,32 +220,36 @@ const CalculatorForm = props => (
                         if (p.type === 'success') {                            
                             return(
                                 <bs.Alert variant="success" key={p.result}>
-                                    <bs.Alert.Heading>Buckets! It went in!</bs.Alert.Heading>
-                                    <p className="mb-1">The player that you have described taking this shot is probably going to make it!</p> 
-                                    <p>Now try and mix up the stats to see if you can improve your percentage!</p>
+                                    <bs.Alert.Heading>Predicted Yards Gained</bs.Alert.Heading>
+                                                                        
                                     <hr />
-                                    <p>This shot has a <strong>{(p.result * 100).toFixed(2)}%</strong> chance to be a make!</p>
+                                    <p style={{
+                                        fontSize: '3rem'
+                                    }}>
+                                        <strong>{p.result}</strong>
+                                    </p> 
                                 </bs.Alert>
                             )
                         }
                         if (p.type === 'danger') {
                             return(
                                 <bs.Alert variant="danger" key={p.result}>
-                                    <bs.Alert.Heading>Brick! This shot missed...</bs.Alert.Heading>
-                                    <p className="mb-1">This is a really tough shot and it will probably be a miss. But dont give up!</p>
-                                    <p>Change up the situation and the stats and maybe you can find the right combination!</p>
+                                    <bs.Alert.Heading>Predicted Yards Gained </bs.Alert.Heading>
                                     <hr />
-                                    <p>This shot only has a <strong>{(p.result * 100).toFixed(2)}%</strong> chance to be a make.</p>
+                                    <p style={{
+                                        fontSize: '3rem'
+                                    }}>
+                                        <strong>{p.result}</strong>
+                                    </p> 
                                 </bs.Alert>
                             )
                         }
                         
                         return(
                             <bs.Alert variant="info" key={p.result}>
-                                <bs.Alert.Heading>Enter the Info Above to View Results</bs.Alert.Heading>
-                                <p className="mb-1">We will display your results here!</p> 
+                                <bs.Alert.Heading>Enter the play data to see results</bs.Alert.Heading>
                                 <hr />
-                                <p>This shot has a <strong>{(p.result * 100).toFixed(2)}%</strong> chance to be a make!</p>
+                                <p className="mb-1">We will display your results here!</p>  
                             </bs.Alert>
                         )
                     })}
