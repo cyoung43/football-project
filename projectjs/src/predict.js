@@ -183,7 +183,7 @@ const CalculatorForm = props => (
                             />
                         </bs.Col>
                     </bs.Row>
-                    <Input title="Number of Passes" name="drive_pass_count" type="number" min="1" max="24.0" step="1"/>                    
+                    <Input title="Number of Passes in Drive" name="drive_pass_count" type="number" min="1" max="24.0" step="1"/>                    
                 </bs.Col>
                 <bs.Col md="6">
                     <InputQuarter title="Month:" name="month" type="select" val0="" lab0="Select Month" 

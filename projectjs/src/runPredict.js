@@ -12,88 +12,82 @@ function Predictor(props) {
     return (        
         <Formik
             initialValues={{
-                player_first: 'Yoeli',
-                player_last: 'Childs',
-                location: 'H',
-                shot_number: 7,
-                period: '4',
-                shot_clock: 8.7,
-                dribbles: 4,
-                shot_distance: 20.9,
-                pts_type: '2',
-                close_def_dist: 1.8,
-                minutes: 9,
-                seconds: 46,
-                fg: 78.1,
-                experience: '5',
+                defense_play: 'Utah',
+                def_rank: 12,
+                down: 3,
+                running_avg_drive_rushing_yards: 4.7,
+                zone: 'red',
+                Under_two: 1,
+                drive_rush_count: 11,
+                month: 'September',
+                distance: '7',
+                previous_yards_gained: 3,
+                yards_to_goal: 14,
+                // success_rate: 0.76,
+                score_diff: 5,
             }}
             validateOnChange={false}
             validateOnBlur={false}
             validate={values => {
                 const errors = {}
 
-                if (values.player_first === '') {
-                    errors.player_first = 'Please enter a First Name'
+                if (values.defense_play === '') {
+                    errors.defense_play = 'Please enter a Team Name'
                 }
-                if (values.player_last === '') {
-                    errors.player_last = 'Please enter a Last Name'
+                if (values.def_rank === '') {
+                    errors.def_rank = 'Please enter a Defensive Ranking'
                 }
-                if (values.location === '') {
-                    errors.location = 'Please enter Home or Away'
+                if (values.down === '') {
+                    errors.down = 'Please enter the Down'
                 }
-                if (values.shot_number === '') {
-                    errors.shot_number = 'Please enter a valid shot number'
+                if (values.running_avg_drive_rushing_yards === '') {
+                    errors.running_avg_drive_rushing_yards = 'Please enter a number'
                 }
-                if (values.period === '') {
-                    errors.period = 'Please choose quarter'
+                if (values.zone === '') {
+                    errors.zone = 'Please select zone'
                 }
-                if (values.shot_clock === '') {
-                    errors.shot_clock = 'Please enter valid number 0 to 24'
+                if (values.Under_two === '') {
+                    errors.Under_two = 'Please select option'
                 }
-                if (values.dribbles === '') {
-                    errors.dribbles = 'Please enter a valid number'
+                if (values.drive_rush_count === '') {
+                    errors.drive_rush_count = 'Please enter a valid number'
                 }
-                if (values.pts_type === '') {
-                    errors.pts_type = 'Please select 2 or 3'
+                if (values.month === '') {
+                    errors.month = 'Please select month'
                 }
-                if (values.close_def_dist === '') {
-                    errors.close_def_dist = 'Please enter distance'
+                if (values.distance === '') {
+                    errors.distance = 'Please enter distance'
                 }
-                if (values.minutes === '') {
-                    errors.minutes = 'Please enter valid number 0 to 12'
+                if (values.previous_yards_gained === '') {
+                    errors.previous_yards_gained = 'Please enter valid number'
                 }
-                if (values.seconds === '') {
-                    errors.seconds = 'Please enter valid number 0 to 59'
+                if (values.yards_to_goal === '') {
+                    errors.yards_to_goal = 'Please enter valid number 0 to 101'
                 }
-                if (values.fg === '') {
-                    errors.fg = 'Please enter proper fg% 0 to 100'
-                }
-                if (values.experience === '') {
-                    errors.experience = 'Please enter valid experience R to 20'
+                //if (values.success_rate === '') {
+                //    errors.success_rate = 'Please enter proper fg% 0 to 1'
+                //}
+                if (values.score_diff === '') {
+                    errors.score_diff = 'Please enter valid number'
                 }
                 return errors // This is the way
             }}
             onSubmit={async (values, actions) => {
                 //console.log('submit', values)             
 
-                if (values.shot_distance > 23.75) {
-                    values.pts_type = '3'
-                }
-
                 let dict = {
-                    player_first: values.player_first,
-                    player_last: values.player_last,
-                    location: values.location,
-                    shot_number: values.shot_number,
-                    period: values.period,                    
-                    shot_clock: parseFloat(values.shot_clock),
-                    dribbles: values.dribbles,
-                    shot_distance: parseFloat(values.shot_distance),
-                    pts_type: values.pts_type,
-                    close_def_dist: parseFloat(values.close_def_dist),
-                    game_clock: ((values.minutes * 60) + values.seconds),
-                    fg: parseFloat(values.fg),
-                    experience: values.experience,
+                    def_rank: values.def_rank,
+                    drive_rush_count: values.drive_rush_count,
+                    Under_two: values.Under_two,
+                    down: values.down,
+                    distance: parseFloat(values.distance),                    
+                    zone: values.zone,
+                    // success_rate: parseFloat(values.success_rate),
+                    month: values.month,
+                    running_avg_drive_rushing_yards: parseFloat(values.running_avg_drive_rushing_yards),
+                    score_diff: values.score_diff,
+                    previous_yards_gained: values.previous_yards_gained,
+                    yards_to_goal: values.yards_to_goal,
                 }
 
                 // console.log(dict)
@@ -158,7 +152,7 @@ const CalculatorForm = props => (
 
     <bs.Container>
         <h1 className="pt-4" style={{display: 'inline-block'}}>
-            Passing Yards Predictor
+            Rushing Yards Predictor
         </h1>
         <hr />
         <h6 className="text-danger">{props.error}</h6> 
@@ -176,33 +170,37 @@ const CalculatorForm = props => (
                     <InputQuarter title="What Down is it?" name="down" type="select" val0="" lab0="Select One"
                         val1="1" val2="2" val3="3" val4="4" lab1="1st" lab2="2nd" lab3="3rd" lab4="4th"
                     />
-                    <Input title="Average passing yards in the drive:" name="running_avg_drive_passing_yards" type="number" />
+                    <Input title="Average rushing yards in the drive:" name="running_avg_drive_rushing_yards" type="number" />
                     <bs.Row>
                         <bs.Col>
-                            <Input title="Current zone" name="zone" type="text"/>
+                            <InputDrop title="Current Zone" name="zone" type="select" val0='' lab0='Select Zone'
+                                val1='red' lab1='Red (0-20 yardline)' val2='blue' lab2='Blue (20-60 yardline)' val3='green' lab3='Green (60-100 yardline)'
+                            />
                         </bs.Col>
                         <bs.Col>
-                            <Input title="Previous zone" name="previous_zone" type="text"/>
+                            
                         </bs.Col>
                     </bs.Row>
-                    <Input title="Number of Passes" name="passing" type="number" min="0.1" max="24.0" step="0.1"/>                    
+                    <Input title="Number of Rushes in Drive" name="drive_rush_count" type="number" min="1" max="24.0" step="1"/>                    
                 </bs.Col>
                 <bs.Col md="6">
-                    <InputDrop title="Month:" name="month" type="select" val0="" lab0="Select Month" 
-                        val1="1" lab1="September" val2="2" lab2="October" val3="3" lab3="November" val4="4" lab4="December" 
+                    <InputQuarter title="Month:" name="month" type="select" val0="" lab0="Select Month" 
+                        val1="September" lab1="September" val2="October" lab2="October" val3="November" lab3="November" val4="December" lab4="December" 
                     />                    
                     <bs.Row>
                         <bs.Col>
-                            <Input title="Distance to 1st down:" name="distance" type="number" />
+                            <Input title="Distance to 1st down:" name="distance" type="number" min='0' max='100' step='0.5'/>
                         </bs.Col>    
                         <bs.Col>
                             <Input title="Yards gained on previous play:" name="previous_yards_gained" type="number" />
                         </bs.Col>
                     </bs.Row>
-                    <Input title="Yards to goal:" name="shot_distance" type="end_yards_to_goal" min="0" max="101" step="0.1" />
-                    <Input name="pts_type" type="hidden" value='2'/>
-                    <Input title="Passing completion %" name="fg" type="number" min="0" max="100" step="0.1"/>
-                    <Input title="Score difference (BYU - Opp)" name="close_def_dist" type="number" min="0" max="94" step="0.1" />                    
+                    <Input title="Yards to goal:" name="yards_to_goal" type="number" min="0" max="101" step="0.1" />
+                    
+                    <InputDrop title="Less Than Two Minutes?" name="Under_two" type="select" val0='' lab0='Select one'
+                                val1='1' lab1='Yes' val2='0' lab2='No' 
+                            />
+                    <Input title="Score difference (BYU - Opponent)" name="score_diff" type="number" min="-94" max="94" step="1" />                    
                 </bs.Col>
             </bs.Row>
             <bs.Row className="mb-4">
@@ -211,7 +209,7 @@ const CalculatorForm = props => (
                         <bs.Button className="btn btn-lg btn-primary" type="submit" disabled={props.form.isSubmitting}>
                             {props.form.isSubmitting &&
                                 <bs.Spinner as="span" animation="grow" size="lg" role="status" aria-hidden="true" />                     
-                            } Predict Yards
+                            } Predict Yards Gained
                         </bs.Button>
                     </bs.Container>
                 </bs.Col>
@@ -287,6 +285,7 @@ const Input = (props) => (
     )}</Field>
 )
 
+/*
 const InputYN = (props) => (
     <Field name={props.name}>{rProps => (
         <bs.Form.Group>
@@ -309,6 +308,7 @@ const InputYN = (props) => (
         </bs.Form.Group>
     )}</Field>
 )
+*/
 
 const InputQuarter = (props) => (
     <Field name={props.name}>{rProps => (
@@ -351,23 +351,6 @@ const InputDrop = (props) => (
                 <option value={props.val1} label={props.lab1}/>
                 <option value={props.val2} label={props.lab2}/>
                 <option value={props.val3} label={props.lab3}/>
-                <option value={props.val4} label={props.lab4}/>
-                <option value={props.val5} label={props.lab5}/>
-                <option value={props.val6} label={props.lab6}/>
-                <option value={props.val7} label={props.lab7}/>
-                <option value={props.val8} label={props.lab8}/>
-                <option value={props.val9} label={props.lab9}/>
-                <option value={props.val10} label={props.lab10}/>
-                <option value={props.val11} label={props.lab11}/>
-                <option value={props.val12} label={props.lab12}/>
-                <option value={props.val13} label={props.lab13}/>
-                <option value={props.val14} label={props.lab14}/>
-                <option value={props.val15} label={props.lab15}/>
-                <option value={props.val16} label={props.lab16}/>
-                <option value={props.val17} label={props.lab17}/>
-                <option value={props.val18} label={props.lab18}/>
-                <option value={props.val19} label={props.lab19}/>
-                <option value={props.val20} label={props.lab20}/>
                 
             </bs.Form.Control>
             {rProps.meta.touched && rProps.meta.error &&
