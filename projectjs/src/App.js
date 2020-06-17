@@ -6,7 +6,7 @@ import FooterContainer from './footer'
 import About from './about'
 import Predictor from './predict'
 import PicContainer from './picture'
-import Recommender from './recommend'
+import Run from './runPredict'
 import './App.scss'
 
 function App() {
@@ -32,8 +32,8 @@ function App() {
                 <Route path="/about">
                   <About />
                 </Route>
-                <Route path="/recommender">
-                  <Recommender />
+                <Route path="/run">
+                  <Run />
                 </Route>
                 <Route path="/">
                   <Predictor />                

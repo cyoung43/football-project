@@ -1,6 +1,6 @@
 import React from 'react'
 import * as bs from 'react-bootstrap'
-import Pic from './media/Basketball_3.jpg'
+import Pic from './media/BYU_2.jpg'
 import { useRouteMatch } from 'react-router-dom'
 
 function HeaderContainer(props) {
@@ -9,13 +9,13 @@ function HeaderContainer(props) {
     //console.log(match)
 
     if (match === null) {
-        text = 'Shot Predictor'
+        text = ''
     }
     else if (match.params.page === 'recommender') {
-        text = 'Similar Players'
+        text = ''
     }
     else {
-        text = 'Shot Predictor'
+        text = ''
     }    
 
     return (        
@@ -23,8 +23,8 @@ function HeaderContainer(props) {
             <bs.Row>
                 <bs.Col md='1' />
                 <bs.Col md='3'>
-                    <bs.Container>
-                        <h1 style={{color: '#ffc107', fontSize: '100px'}}>{text}</h1>
+                    <bs.Container style= {{paddingTop: 300}}>
+                        <h1 style={{color: '#fff', fontSize: '100px'}}>{text}</h1>
                     </bs.Container>
                 </bs.Col>
                 <bs.Col md='8' />

@@ -1,7 +1,7 @@
 import React from 'react'
 import * as bs from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import Pic from './media/basketball_icon.png'
+import Pic from './media/sailor-coug-logo.png'
 
 function HeaderContainer(props) {
 
@@ -9,15 +9,15 @@ function HeaderContainer(props) {
         <bs.Navbar expand="lg" bg="dark" variant="dark" fixed="top">
             <Link to='/' >
                 <bs.Navbar.Brand>
-                    <bs.Image  src={Pic} height="50" width="50" alt="Basketball Logo"/>
-                    {'  '}Basketball Analytics
+                    <bs.Image  src={Pic} height="100" width="100" alt="Basketball Logo"/>
+                    {'  '} Football Analytics
                 </bs.Navbar.Brand>
             </Link>
             <bs.Navbar.Toggle aria-controls="basic-Navbar-Nav" />
             <bs.Navbar.Collapse id="basic-Navbar-Nav">
                 <bs.Nav className="mr-auto">
-                    <Link to="/" className="nav-link">Predictor</Link>
-                    <Link to="/recommender" className="nav-link">Recommender</Link>
+                    <Link to="/" className="nav-link">Pass Predictor</Link>
+                    <Link to="/run" className="nav-link">Run Predictor</Link>
                     <Link to="/about" className="nav-link">About</Link>                
                 </bs.Nav>
                 <bs.Form inline>
