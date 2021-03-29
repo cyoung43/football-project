@@ -12,7 +12,7 @@ jedi==0.17.0
 parso==0.7.0
 prompt-toolkit==3.0.5
 ptpython==3.0.2
-Pygments==2.6.1
+Pygments==2.7.4
 pyodbc==4.0.30
 pytz==2019.3
 requests==2.23.0
